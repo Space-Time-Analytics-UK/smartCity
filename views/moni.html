@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="20;url=moni">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+          <!-- 新 Bootstrap 核心 CSS 文件 -->
+          <style>
+            table,td
+            {
+                border:1px solid black;
+                width: 800px;
+                height: 300px;
+            }
+            </style>
+</head>
+<script>
+      $(function () {
+        $("#btn3").on("click", function () {
+         //   window.location.href = 'http://127.0.0.1:3000/yuding'
+        $.post('/yuding',{"PaiZhao":"ZGNI460"},function(resp){
+            if (resp.code < 0) {
+              //  alert(resp.msg);
+            } else {
+               document.getElementById(10).style.backgroundColor="#ff0000"
+               document.getElementById(10).innerText="该车位已经被占"
+            }
+        
+         })
+       })
+    //定义个用来给表格中装载数据的函数
+    var fillToTable = function (data) {
+     for(var i = 0;i<data;i++){
+        document.getElementById(i+1).style.backgroundColor="#ff0000"
+        document.getElementById(i+1).innerText="该车位已经被占"
+     }
+    // switch(data)
+    //   {
+    //      case 1 :
+    //         var id = document.getElementById('1')
+    //         id.innerText="该车位已经被占"
+    //         break;
+    //      case 2 :
+    //         var id = document.getElementById('2')
+    //         id.innerText="该车位已经被占"
+    //         break;
+    //      case 3 :
+    //         var id = document.getElementById('3')
+    //         id.innerText="该车位已经被占"
+    //         break;
+    //      case 4 :
+    //        var id = document.getElementById('4')
+    //         id.innerText="该车位已经被占"
+    //         break;
+    //      case 5 :
+    //         var id = document.getElementById('5')
+    //         id.innerText="该车位已经被占"
+    //         break;
+    //     case 6 :
+    //         var id = document.getElementById('6')
+    //         id.innerText="该车位已经被占"
+    //         break;
+    //     case 7 :
+    //         var id = document.getElementById('7')
+    //         id.innerText="该车位已经被占"
+    //         break;
+    //     case 8 :
+    //         var id = document.getElementById('8')
+    //         id.innerText="该车位已经被占"
+    //         break;
+    //     case 9 :
+    //         var id = document.getElementById('9')
+    //         id.innerText="该车位已经被占"
+    //         break;
+    //     case 10 :
+    //         var id = document.getElementById('10')
+    //         id.innerText="该车位已经被占"
+    //         break;
+    //      default :
+         
+
+    //   }
+        };
+      //发送请求获取数据库的数据
+      $.get("/indexs", {}, function (resp) {
+            if (resp.code < 0) {
+                alert(resp.msg);
+            } else {
+              //  alert(resp.data[0].Rest_num)
+                fillToTable(resp.data[0].Rest_num);
+            }
+        }, "json");
+  }); 
+</script>
+<body>
+    <table>
+        <tbody id="tbody1"> 
+            <tr>
+                <td id ="1">1号停车位</td>
+  
+                <td id = "2">2号停车位</td>
+               
+                <td id = "3">3号停车位</td>
+              
+                <td id = "4">4号停车位</td>
+              
+                <td id = "5"> 5号停车位</td>
+                  
+                </tr>
+                <tr>
+                        <td id = "6">6号停车位</td>
+                  
+                        <td id = "7">7号停车位</td>
+                    
+                        <td id = "8">8号停车位</td>
+                   
+                        <td id = "9">9号停车位</td>
+                   
+                        <td id = "10">10号停车位</td>
+                        <button type="submit" id="btn3">预定</button>
+                    
+                </tr>
+        </tbody>
+       
+        </table>
+</body>
+</html>
